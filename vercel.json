@@ -1,0 +1,8 @@
+{
+  "buildCommand": "npm run build:client",
+  "outputDirectory": "dist",
+  "devCommand": "npm run dev",
+  "env": [
+    "DATABASE_URL"
+  ]
+}
