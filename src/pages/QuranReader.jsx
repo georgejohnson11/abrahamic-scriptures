@@ -207,7 +207,7 @@ export default function QuranReader() {
               )}
             </div>
           ) : loading ? (
-            <Alert variant="info" style={{ fontFamily: 'Amiri, serif' }}>جاري التحميل…</Alert>
+            <div className="quran-loading-alert">جاري التحميل…</div>
           ) : (
             <>
               <div className="d-flex justify-content-between align-items-center mb-4">
