@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./db:/app/db
+    networks:
+      - abrahamic-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://backend:3001
+    networks:
+      - abrahamic-network
+
+networks:
+  abrahamic-network:
+    driver: bridge

@@ -1,0 +1,361 @@
+.quran-page {
+  /* ── Colors ── */
+  --clr-green:          #1e6b45;
+  --clr-green-dark:     #155233;
+  --clr-green-muted:    rgba(30, 107, 69, 0.08);
+  --clr-green-hover:    rgba(30, 107, 69, 0.10);
+  --clr-green-focus:    rgba(30, 107, 69, 0.20);
+  --clr-green-shadow:   rgba(30, 107, 69, 0.25);
+
+  --clr-gold:           #c9a84c;
+  --clr-gold-light:     #f0d080;
+  --clr-gold-pale:      #b8965a;
+  --clr-gold-highlight: rgba(201, 168, 76, 0.40);
+
+  --clr-bg:             #f9f4ea;
+  --clr-bg-card:        #fdf9f1;
+  --clr-bg-hover:       #f0e8d0;
+  --clr-bg-tabs:        #f5ede0;
+  --clr-bg-white:       #ffffff;
+
+  --clr-text:           #2a1f14;
+  --clr-text-dark:      #1a1209;
+  --clr-text-brown:     #5a3e1b;
+  --clr-border-light:   #e8d9b8;
+
+  /* ── Font sizes ── */
+  --fs-xs:    0.42rem;
+  --fs-sm:    0.55rem;
+  --fs-base:  1rem;
+  --fs-md:    1.05rem;
+  --fs-lg:    1.15rem;
+  --fs-xl:    1.2rem;
+  --fs-2xl:   2.2rem;
+
+  /* ── Border radii ── */
+
+  /* ── Page base ── */
+  background-color: var(--clr-bg);
+  min-height: 100vh;
+}
+.btn, .card{
+  border-radius: 0% !important;
+}
+/* ── Sidebar ── */
+.quran-sidebar .card {
+  border: 1px solid var(--clr-gold-pale);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.quran-sidebar .card-header {
+  background: linear-gradient(135deg, var(--clr-green) 0%, var(--clr-green-dark) 100%);
+  color: var(--clr-gold-light);
+  font-family: 'Amiri', serif;
+  font-size: var(--fs-xl);
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 2px solid var(--clr-gold);
+  padding: 0.75rem 1rem;
+}
+
+.quran-sidebar .list-group-item {
+  background-color: var(--clr-bg-card);
+  color: var(--clr-text);
+  border-color: var(--clr-border-light);
+  font-family: 'Amiri', serif;
+  font-size: var(--fs-md);
+  text-align: right;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.quran-sidebar .list-group-item:hover {
+  background-color: var(--clr-bg-hover);
+  color: var(--clr-green);
+}
+
+.quran-sidebar .list-group-item.active {
+  background-color: var(--clr-green) !important;
+  border-color: var(--clr-green) !important;
+  color: var(--clr-gold-light) !important;
+}
+
+/* ── Surah title ── */
+.quran-surah-title {
+  font-family: 'Amiri Quran', 'Amiri', serif;
+  font-size: var(--fs-2xl);
+  color: var(--clr-green);
+  margin-bottom: 0;
+}
+
+/* ── Verse text ── */
+.quran-verses {
+  font-family: 'Amiri Quran', 'Amiri', serif;
+  color: var(--clr-text-dark);
+  text-align: justify;
+}
+
+.hover-highlight {
+  padding: 0 2px;
+  transition: background 0.15s;
+  cursor: pointer;
+}
+
+.hover-highlight:hover {
+  background-color: var(--clr-green-hover);
+}
+
+/* ── Verse number badge ── */
+.verse-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1.5px solid var(--clr-gold);
+  color: var(--clr-green);
+  width: 1.6em;
+  height: 1.6em;
+  font-family: 'Amiri', serif;
+  font-size: var(--fs-xs);
+  vertical-align: middle;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  margin: 0 0.2em;
+}
+
+.verse-badge:hover {
+  background: var(--clr-green);
+  color: var(--clr-gold-light);
+  border-color: var(--clr-green);
+}
+
+/* ── Search results ── */
+.quran-search-result {
+  border-right: 3px solid var(--clr-green) !important;
+  border-left: none !important;
+  background: var(--clr-bg-card);
+  transition: background 0.15s;
+}
+
+.quran-search-result:hover {
+  background: var(--clr-bg-hover);
+}
+
+/* ── Tafseer modal ── */
+.quran-modal .modal-header {
+  background: linear-gradient(135deg, var(--clr-green) 0%, var(--clr-green-dark) 100%);
+  color: var(--clr-gold-light);
+  font-family: 'Amiri', serif;
+  border-bottom: 2px solid var(--clr-gold);
+}
+
+.quran-modal .modal-header .btn-close {
+  filter: invert(1) brightness(2);
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.quran-modal .nav-tabs {
+  background: var(--clr-bg-tabs);
+  border-bottom: 1px solid var(--clr-gold);
+}
+
+.quran-modal .nav-tabs .nav-link {
+  font-family: 'Amiri', serif;
+  font-size: var(--fs-base);
+  color: var(--clr-text-brown);
+  border: none;
+  padding: 0.6rem 1.2rem;
+}
+
+.quran-modal .nav-tabs .nav-link:hover {
+  color: var(--clr-green);
+  background: var(--clr-green-muted);
+}
+
+.quran-modal .nav-tabs .nav-link.active {
+  background: var(--clr-bg-white);
+  color: var(--clr-green);
+  border-bottom: 2px solid var(--clr-green);
+  font-weight: bold;
+}
+
+.quran-tafseer-content {
+  font-family: 'Amiri', serif;
+  font-size: var(--fs-lg);
+  color: var(--clr-text);
+  line-height: 2;
+  text-align: right;
+  direction: rtl;
+}
+
+/* ── Form controls ── */
+.quran-page .form-control {
+  border-color: var(--clr-gold);
+  background: var(--clr-bg-card);
+  font-family: 'Amiri', serif;
+  font-size: var(--fs-base);
+  direction: rtl;
+}
+
+.quran-page .form-control:focus {
+  border-color: var(--clr-green);
+  box-shadow: 0 0 0 0.2rem var(--clr-green-focus);
+}
+
+.quran-page .btn-primary {
+  background-color: var(--clr-green);
+  border-color: var(--clr-green);
+}
+
+.quran-page .btn-primary:hover {
+  background-color: var(--clr-green-dark);
+  border-color: var(--clr-green-dark);
+}
+
+.quran-page .btn-outline-secondary {
+  border-color: var(--clr-gold);
+  color: var(--clr-text-brown);
+}
+
+.quran-page .btn-outline-secondary:hover {
+  background: var(--clr-gold);
+  color: var(--clr-bg-white);
+}
+
+/* ── Font size slider ── */
+.quran-page .form-range::-webkit-slider-thumb {
+  background-color: var(--clr-green);
+}
+
+.quran-page .form-range::-moz-range-thumb {
+  background-color: var(--clr-green);
+}
+
+.quran-page .form-range::-webkit-slider-runnable-track {
+  background-color: var(--clr-gold);
+}
+
+.quran-page .form-range::-moz-range-track {
+  background-color: var(--clr-gold);
+}
+
+.quran-page .form-range:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 0.2rem var(--clr-green-shadow);
+}
+
+/* ── Utilities ── */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.highlight {
+  background-color: var(--clr-gold-highlight);
+  padding: 0 2px;
+}
+
+/* ── Sidebar scrollbar ── */
+.quran-sidebar .list-group {
+  scrollbar-width: thin;
+  scrollbar-color: var(--clr-green) var(--clr-gold);
+}
+
+.quran-sidebar .list-group::-webkit-scrollbar {
+  width: 6px;
+}
+
+.quran-sidebar .list-group::-webkit-scrollbar-track {
+  background: var(--clr-gold);
+}
+
+.quran-sidebar .list-group::-webkit-scrollbar-thumb {
+  background-color: var(--clr-green);
+}
+
+.quran-sidebar .list-group::-webkit-scrollbar-thumb:hover {
+  background-color: var(--clr-green-dark);
+}
+
+/* ── Hamburger toggle (mobile, inline with search bar) ── */
+.quran-hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 42px;
+  height: 38px;
+  background: var(--clr-green);
+  border: 1px solid var(--clr-green-dark);
+  padding: 9px 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.quran-hamburger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: var(--clr-gold-light);
+}
+
+.quran-hamburger:hover {
+  background: var(--clr-green-dark);
+}
+
+/* ── Mobile sidebar drawer ── */
+@media (max-width: 767px) {
+  .quran-sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 75vw;
+    max-width: 300px;
+    height: 100vh;
+    z-index: 1050;
+    background: var(--clr-bg-card);
+    box-shadow: -4px 0 16px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    padding: 0;
+  }
+
+  .quran-sidebar--open {
+    display: block;
+  }
+
+  .quran-sidebar .card {
+    border: none;
+    height: 100%;
+  }
+
+  .quran-sidebar .list-group {
+    max-height: none !important;
+  }
+}
+
+/* ── Overlay ── */
+.quran-sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1049;
+}
+
+/* ── Sidebar close button (mobile only) ── */
+.quran-sidebar-close {
+  background: transparent;
+  border: none;
+  color: var(--clr-gold-light);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0.2rem;
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+
+.quran-sidebar-close:hover {
+  opacity: 1;
+}

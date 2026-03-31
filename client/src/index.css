@@ -1,0 +1,78 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f5f0e8;
+  color: #2a1f14;
+}
+
+/* ── Navbar ── */
+.app-navbar {
+  background: linear-gradient(135deg, #1a0f0a 0%, #2c1a0e 100%) !important;
+  border-bottom: 2px solid #c9a84c;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.app-navbar .navbar-brand {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  color: #c9a84c !important;
+  letter-spacing: 0.05em;
+}
+
+.app-navbar .nav-link {
+  color: #e8d5b0 !important;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  padding: 0.4rem 1rem !important;
+  transition: color 0.2s, background 0.2s;
+}
+
+.app-navbar .nav-link:hover {
+  color: #c9a84c !important;
+  background: rgba(201, 168, 76, 0.1);
+}
+
+/* ── Navbar collapse visible on all screens ── */
+.app-navbar .navbar-collapse {
+  display: flex !important;
+}
+
+/* ── Welcome page ── */
+.welcome-page {
+  font-family: 'Cinzel', serif;
+  color: #3a2510;
+}
+
+.welcome-page h1 {
+  font-size: 2.5rem;
+  color: #2c1a0e;
+  margin-bottom: 1rem;
+}
+
+.welcome-page p {
+  color: #6b4c2a;
+  font-size: 1.1rem;
+}
+
+.welcome-links a {
+  display: inline-block;
+  margin: 0 1rem;
+  padding: 0.6rem 2rem;
+  border: 2px solid #c9a84c;
+  color: #2c1a0e;
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.welcome-links a:hover {
+  background: #c9a84c;
+  color: #fff;
+}
