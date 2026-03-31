@@ -152,10 +152,16 @@
 }
 
 .quran-modal .modal-header .btn-close {
-  filter: brightness(0) invert(1) drop-shadow(0 0 1px rgba(0, 0, 0, 0.1));
-  opacity: 1;
+  background-color: var(--clr-gold-light);
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.2));
+  opacity: 0.85;
   margin-left: 0;
   margin-right: auto;
+  transition: opacity 0.15s;
+}
+
+.quran-modal .modal-header .btn-close:hover {
+  opacity: 1;
 }
 
 .quran-modal .nav-tabs {
