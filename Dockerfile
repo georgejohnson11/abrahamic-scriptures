@@ -4,7 +4,7 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Copy root package files
-COPY package.json package-lock.json ./
+COPY package.json* ./
 
 # Install dependencies
 RUN npm install
@@ -25,7 +25,7 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Copy root package files
-COPY package.json package-lock.json ./
+COPY package.json* ./
 
 # Install production dependencies only
 RUN npm install --production
