@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  backend:
+  app:
     build:
-      context: ./server
+      context: .
       dockerfile: Dockerfile
     ports:
       - "3001:3001"
@@ -11,19 +11,6 @@ services:
       - NODE_ENV=production
     volumes:
       - ./db:/app/db
-    networks:
-      - abrahamic-network
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "5000:5000"
-    depends_on:
-      - backend
-    environment:
-      - VITE_API_URL=http://backend:3001
     networks:
       - abrahamic-network
 

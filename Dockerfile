@@ -9,13 +9,15 @@ COPY package.json package-lock.json ./
 # Install dependencies
 RUN npm install
 
-# Copy client and source files
-COPY client ./client
+# Copy source files
+COPY src ./src
+COPY index.html .
+COPY vite.config.js .
 COPY db ./db
 COPY server.js .
 
 # Build frontend
-RUN npm run build:client
+RUN npm run build
 
 # Production stage
 FROM node:18-alpine
