@@ -19,6 +19,7 @@ export default function BibleReader() {
   const [loading, setLoading] = useState(false)
   const [searching, setSearching] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [showBackToTop, setShowBackToTop] = useState(false)
 
   useEffect(() => {
     bibleAPI.getBooks().then(res => setBooks(res.data)).catch(console.error)
@@ -71,6 +72,22 @@ export default function BibleReader() {
     setTheme(newTheme)
     localStorage.setItem('bible-theme', newTheme)
     document.documentElement.setAttribute('data-bs-theme', newTheme)
+  }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowBackToTop(true)
+      } else {
+        setShowBackToTop(false)
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const bid = parseInt(bookId)
@@ -245,6 +262,18 @@ export default function BibleReader() {
           </>
         )}
       </Col>
+
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <button
+          className="back-to-top"
+          onClick={scrollToTop}
+          aria-label="Back to Top"
+          title="Back to Top"
+        >
+          ↑
+        </button>
+      )}
     </Row>
   )
 }

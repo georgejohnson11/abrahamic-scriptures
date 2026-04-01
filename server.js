@@ -14,6 +14,7 @@ app.use(express.json());
 // Serve static files from Vite build
 app.use(express.static(path.join(__dirname, 'dist')));
 
+console.log('📚 Initializing databases...');
 const bible = new BibleDB('./db/bible.db');
 const quran = new QuranDB('./db/quran.db');
 
@@ -22,8 +23,14 @@ const quran = new QuranDB('./db/quran.db');
 app.get('/api/bible/books', async (req, res) => {
   try {
     const books = await bible.getAllBooks();
+    if (!books || books.length === 0) {
+      console.warn('⚠️  Bible database returned no books');
+    } else {
+      console.log(`✓ Returned ${books.length} books from Bible database`);
+    }
     res.json(books);
   } catch (error) {
+    console.error('❌ Error fetching Bible books:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -73,8 +80,14 @@ app.get('/api/bible/search', async (req, res) => {
 app.get('/api/quran/surahs', async (req, res) => {
   try {
     const surahs = await quran.getAllSurahs();
+    if (!surahs || surahs.length === 0) {
+      console.warn('⚠️  Quran database returned no surahs');
+    } else {
+      console.log(`✓ Returned ${surahs.length} surahs from Quran database`);
+    }
     res.json(surahs);
   } catch (error) {
+    console.error('❌ Error fetching Quran surahs:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -128,5 +141,6 @@ app.get('*', (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`\n🚀 Server running on http://localhost:${PORT}`);
+  console.log(`📡 API: http://localhost:${PORT}/api`);
 });

@@ -1,4 +1,4 @@
-.quran-page {
+:root {
   /* ── Colors ── */
   --clr-green:          #1e6b45;
   --clr-green-dark:     #155233;
@@ -24,7 +24,7 @@
   --clr-border-light:   #e8d9b8;
 
   /* ── Font sizes ── */
-  --fs-xs:    0.42rem;
+  --fs-xs:    0.8rem;
   --fs-sm:    0.55rem;
   --fs-base:  1rem;
   --fs-md:    1.05rem;
@@ -38,14 +38,15 @@
   background-color: var(--clr-bg);
   min-height: 100vh;
 }
-.btn, .card{
-  border-radius: 0% !important;
+/* Reset for Sharp UI */
+*, *::before, *::after {
+  border-radius: 0 !important;
 }
 /* ── Sidebar ── */
 .quran-sidebar .card {
   border: 1px solid var(--clr-gold-pale);
-  overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: visible;
 }
 
 .quran-sidebar .card-header {
@@ -115,14 +116,14 @@
   background: transparent;
   border: 1.5px solid var(--clr-gold);
   color: var(--clr-green);
-  width: 1.6em;
-  height: 1.6em;
+  min-width: 1.4em; 
+  height: 1.4em; 
+  padding: 0 10px 0 10px;
   font-family: 'Amiri', serif;
-  font-size: var(--fs-xs);
+  /* font-size: var(--fs-xs); */
   vertical-align: middle;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-  margin: 0 0.2em;
+  border-radius: 50% !important;
 }
 
 .verse-badge:hover {
@@ -143,14 +144,6 @@
   background: var(--clr-bg-hover);
 }
 
-/* ── Tafseer modal ── */
-.quran-modal .modal-header {
-  background: linear-gradient(135deg, var(--clr-green) 0%, var(--clr-green-dark) 100%);
-  color: var(--clr-gold-light);
-  font-family: 'Amiri', serif;
-  border-bottom: 2px solid var(--clr-gold);
-}
-
 .quran-modal .modal-header .btn-close {
   background-color: var(--clr-gold-light);
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.2));
@@ -164,39 +157,117 @@
   opacity: 1;
 }
 
-.quran-modal .nav-tabs {
-  background: var(--clr-bg-tabs);
+/* ── Enhanced modal styling ── */
+.quran-modal .modal-dialog {
+  animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.quran-modal .modal-content {
+  background: var(--clr-bg-white);
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.quran-modal .modal-header {
+  background: linear-gradient(135deg, var(--clr-green) 0%, var(--clr-green-dark) 100%);
+  color: var(--clr-gold-light);
+  font-family: 'Amiri', serif;
   border-bottom: 1px solid var(--clr-gold);
+  padding: 1.25rem 1.5rem;
+}
+
+.quran-modal .modal-header .modal-title {
+  font-weight: 600;
+  font-size: var(--fs-lg);
+  letter-spacing: 0.02em;
+}
+
+.quran-modal .modal-body {
+  font-family: 'Amiri', serif;
+  padding: 0;
+  background: var(--clr-bg-white);
+}
+
+.quran-modal .nav-tabs {
+  background: linear-gradient(to right, var(--clr-green-muted), var(--clr-gold-highlight));
+  padding: 0.5rem;
+  gap: 0.5rem;
+}
+
+.quran-modal .nav-tabs .nav-item {
+  margin-bottom: -2px;
 }
 
 .quran-modal .nav-tabs .nav-link {
   font-family: 'Amiri', serif;
   font-size: var(--fs-base);
-  color: var(--clr-text);
-  border: none;
-  padding: 0.6rem 1.2rem;
+  color: var(--clr-text-brown);
+  background: var(--clr-bg-card);
+  padding: 0.5rem 1rem;
+  position: relative;
+  cursor: pointer;
+  border-radius: 0;
 }
 
 .quran-modal .nav-tabs .nav-link:hover {
   color: var(--clr-green);
   background: var(--clr-bg-white);
-  border-bottom: 2px solid var(--clr-gold);
+  border-color: var(--clr-green);
 }
 
 .quran-modal .nav-tabs .nav-link.active {
-  background: var(--clr-bg-white);
-  color: var(--clr-green);
-  border-bottom: 2px solid var(--clr-green);
-  font-weight: bold;
+  background: linear-gradient(135deg, var(--clr-green) 0%, var(--clr-green-dark) 100%);
+  color: var(--clr-gold-light);
+  border-color: var(--clr-green);
+  font-weight: 600;
 }
 
-.quran-tafseer-content {
-  font-family: 'Amiri', serif;
-  font-size: var(--fs-lg);
-  color: var(--clr-text);
-  line-height: 2;
-  text-align: right;
-  direction: rtl;
+/* ── Modal backdrop ── */
+.modal-backdrop.show {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── Responsive modal ── */
+@media (max-width: 767px) {
+  .quran-modal .modal-dialog {
+    margin: 0.5rem;
+    max-width: calc(100% - 1rem);
+  }
+
+  .quran-modal .modal-header {
+    padding: 1rem;
+  }
+
+  .quran-modal .nav-tabs .nav-link {
+    padding: 0.5rem 0.75rem;
+    font-size: var(--fs-sm);
+  }
+
+  .quran-tafseer-content {
+    font-size: var(--fs-md) !important;
+    padding: 1rem !important;
+  }
 }
 
 /* ── Form controls ── */
@@ -378,4 +449,45 @@
 
 .quran-sidebar-close:hover {
   opacity: 1;
+}
+
+/* ── Back to Top Button ── */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--clr-green);
+  color: var(--clr-gold-light);
+  border: 2px solid var(--clr-gold);
+  border-radius: 50% !important;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.back-to-top:hover {
+  background-color: var(--clr-green-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.back-to-top:active {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 767px) {
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
 }

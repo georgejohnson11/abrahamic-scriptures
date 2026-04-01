@@ -329,11 +329,43 @@
   opacity: 1;
 }
 
-/* ── Utilities ── */
-.cursor-pointer {
+/* ── Back to Top Button ── */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--clr-maroon);
+  color: var(--clr-gold-light);
+  border: 2px solid var(--clr-gold);
+  border-radius: 50% !important;
+  font-size: 1.5rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.hover-highlight:hover {
-  background-color: var(--clr-maroon-hover);
+.back-to-top:hover {
+  background-color: var(--clr-maroon-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.back-to-top:active {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 767px) {
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
 }

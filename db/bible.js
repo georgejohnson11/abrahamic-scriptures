@@ -2,7 +2,15 @@ import sqlite3 from 'sqlite3';
 
 export class BibleDB {
   constructor(dbPath) {
-    this.db = new sqlite3.Database(dbPath);
+    this.db = new sqlite3.Database(dbPath, (err) => {
+      if (err) {
+        console.error(`Error opening Bible database at ${dbPath}:`, err);
+      } else {
+        console.log(`✓ Bible database connected: ${dbPath}`);
+      }
+    });
+    // Enable verbose mode for debugging
+    this.db.configure('busyTimeout', 5000);
   }
 
   getAllBooks() {

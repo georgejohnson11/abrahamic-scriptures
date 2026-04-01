@@ -22,6 +22,7 @@ export default function QuranReader() {
   const [showTafseerModal, setShowTafseerModal] = useState(false)
   const [selectedVerse, setSelectedVerse] = useState(null)
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [showBackToTop, setShowBackToTop] = useState(false)
 
   useEffect(() => {
     Promise.all([
@@ -52,6 +53,22 @@ export default function QuranReader() {
       if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100)
     }
   }, [verses])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowBackToTop(true)
+      } else {
+        setShowBackToTop(false)
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const goToVerse = (e, suranum, versenum) => {
     e.stopPropagation()
@@ -254,10 +271,22 @@ export default function QuranReader() {
         </Col>
       </Row>
 
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <button
+          className="back-to-top"
+          onClick={scrollToTop}
+          aria-label="العودة إلى الأعلى"
+          title="العودة إلى الأعلى"
+        >
+          ↑
+        </button>
+      )}
+
       {/* Tafseer Modal */}
       <Modal show={showTafseerModal} onHide={() => setShowTafseerModal(false)} size="lg" dir="rtl" className="quran-modal">
         <Modal.Header closeButton>
-          <Modal.Title style={{ fontFamily: 'Amiri, serif' }}>
+          <Modal.Title>
             تفسير الآية {selectedVerse?.verse_num}
           </Modal.Title>
         </Modal.Header>
