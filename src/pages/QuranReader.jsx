@@ -229,7 +229,7 @@ export default function QuranReader() {
                         <span style={{ fontSize: '0.65em', color: '#5a3e1b' }}>{verse.suraname}</span>
                         <div style={{ display: 'flex', gap: '3px' }}>
                           <span className="search-badge" title="انتقل إلى السورة" onClick={(e) => goToVerse(e, verse.suranum, verse.versenum)}>
-                            آية {verse.versenum}
+                            آية {toArabicIndic(verse?.verse_num)}
                           </span>
                           <span className="search-badge" onClick={() => handleVerseClick(verse, verse.suranum)}>التفسير</span>
                         </div>
@@ -270,7 +270,6 @@ export default function QuranReader() {
                     {' '}
                      {/* onClick={(e) => goToVerse(e, sid, verse.verse_num)} */}
                     <span className="verse-badge" title="انتقل إلى الآية">
-                      
                       {toArabicIndic(verse?.verse_num)}
                     </span>
                     {' '}
@@ -302,6 +301,9 @@ export default function QuranReader() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="p-0">
+          <p className="quran-verses p-3" style={{ fontSize: `${fontSize}px`, lineHeight: '2.2', letterSpacing: '0.13px', textAlign: 'justify' }}>
+            {selectedVerse?.verse_txt}
+          </p>
           <Nav variant="tabs" className="px-3 pt-2">
             {tafseerBooks.map(book => (
               <Nav.Item key={book.bookid}>

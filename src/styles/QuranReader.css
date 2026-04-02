@@ -147,6 +147,14 @@
 .search-result:hover {
   background: var(--clr-bg-hover);
 }
+.quran-modal .btn-close{
+  border: none;
+  width: 16px;
+  height: 16px;
+  padding: 5px;
+  font-size: var(--fs-sm);
+  font-weight: 900;
+}
 
 .quran-modal .modal-header .btn-close {
   background-color: var(--clr-gold-light);
@@ -180,7 +188,6 @@
 .quran-modal .modal-content {
   background: var(--clr-bg-white);
   border: none;
-  border-radius: 0;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
@@ -188,13 +195,12 @@
   background: linear-gradient(135deg, var(--clr-green) 0%, var(--clr-green-dark) 100%);
   color: var(--clr-gold-light);
   font-family: 'Amiri', serif;
-  border-bottom: 1px solid var(--clr-gold);
-  padding: 1.25rem 1.5rem;
+  height: 25px;
 }
 
 .quran-modal .modal-header .modal-title {
   font-weight: 600;
-  font-size: var(--fs-lg);
+  font-size: var(--fs-md);
   letter-spacing: 0.02em;
 }
 
@@ -205,38 +211,36 @@
 }
 
 .quran-modal .nav-tabs {
-  background: linear-gradient(to right, var(--clr-green-muted), var(--clr-gold-highlight));
-  padding: 0.5rem;
-  gap: 0.5rem;
+  background: linear-gradient(to top, var(--clr-green-muted), var(--clr-bg-white));
 }
 
 .quran-modal .nav-tabs .nav-item {
-  margin-bottom: -2px;
+  font-size: var(--fs-md);
+  margin-bottom: -1px;
+  border: none;
 }
-
 .quran-modal .nav-tabs .nav-link {
+  background: linear-gradient(180deg, var(--clr-bg-white) 0%, var(--clr-green-muted) 100%);
   font-family: 'Amiri', serif;
-  font-size: var(--fs-base);
-  color: var(--clr-text-brown);
-  background: var(--clr-bg-card);
-  padding: 0.5rem 1rem;
   position: relative;
   cursor: pointer;
-  border-radius: 0;
+  padding: 0 1rem 0.3rem 1rem;
+  border: none;
+  color: var(--clr-green-dark);
 }
-
-.quran-modal .nav-tabs .nav-link:hover {
-  color: var(--clr-green);
-  background: var(--clr-bg-white);
-  border-color: var(--clr-green);
-}
-
 .quran-modal .nav-tabs .nav-link.active {
-  background: linear-gradient(135deg, var(--clr-green) 0%, var(--clr-green-dark) 100%);
-  color: var(--clr-gold-light);
-  border-color: var(--clr-green);
-  font-weight: 600;
+  background: var(--clr-bg-white);
+  color: var(--clr-green-dark);
+  border: none;
 }
+.quran-modal .nav-tabs .nav-link:hover {
+  background: linear-gradient(180deg, var(--clr-bg-white) 0%, var(--clr-bg-hover) 100%);
+  border: none;
+  color: var(--clr-green-dark);
+}
+
+.quran-modal .nav-tabs .nav-link.active {pointer-events: auto;}
+.quran-modal .nav-tabs .nav-link.active:hover { cursor: default;background: var(--clr-bg-white);}
 
 /* ── Modal backdrop ── */
 .modal-backdrop.show {
