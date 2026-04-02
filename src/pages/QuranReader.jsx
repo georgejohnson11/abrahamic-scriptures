@@ -36,13 +36,25 @@ export default function QuranReader() {
 
   useEffect(() => {
     const sid = parseInt(surahId)
+    const searchParams = new URLSearchParams(window.location.search)
+    const queryFromUrl = searchParams.get('q')
+    
     setLoading(true)
     setSearchResults(null)
-    setSearchQuery('')
-    quranAPI.getVerses(sid)
-      .then(res => setVerses(res.data))
-      .catch(console.error)
-      .finally(() => setLoading(false))
+    
+    if (queryFromUrl) {
+      setSearchQuery(queryFromUrl)
+      quranAPI.search(queryFromUrl)
+        .then(res => setSearchResults(res.data))
+        .catch(console.error)
+        .finally(() => setLoading(false))
+    } else {
+      setSearchQuery('')
+      quranAPI.getVerses(sid)
+        .then(res => setVerses(res.data))
+        .catch(console.error)
+        .finally(() => setLoading(false))
+    }
   }, [surahId])
 
   useEffect(() => {
@@ -111,6 +123,10 @@ export default function QuranReader() {
     try {
       const res = await quranAPI.search(searchQuery)
       setSearchResults(res.data)
+      // Add search query to URL
+      const params = new URLSearchParams(window.location.search)
+      params.set('q', searchQuery)
+      window.history.pushState({}, '', `?${params.toString()}`)
     } catch (error) {
       console.error(error)
     } finally {
@@ -121,10 +137,20 @@ export default function QuranReader() {
   const clearSearch = () => {
     setSearchResults(null)
     setSearchQuery('')
+    // Remove search query from URL
+    const params = new URLSearchParams(window.location.search)
+    params.delete('q')
+    const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname
+    window.history.pushState({}, '', newUrl)
   }
 
   const sid = parseInt(surahId)
   const currentSurah = surahs.find(s => s.suraid === sid)
+
+  const ARABIC_NUMS = "٠١٢٣٤٥٦٧٨٩";
+
+  const toArabicIndic = (num) =>
+  String(num ?? "").replace(/\d/g, d => ARABIC_NUMS[d]);
 
   return (
     <div dir="rtl" className="quran-page">
@@ -189,35 +215,26 @@ export default function QuranReader() {
 
           {/* Search results */}
           {searchResults !== null ? (
-            <div>
-              <h5 className="mb-3" style={{ fontFamily: 'Amiri, serif', color: '#1e6b45' }}>
-                نتائج البحث: <Badge style={{ background: '#1e6b45' }}>{searchResults.count}</Badge>
+            <div style={{ fontFamily: 'Amiri, serif' }}>
+              <h5 className="mb-3" style={{ color: '#1e6b45' }}>
+                نتائج البحث: <Badge>{searchResults.count}</Badge>
               </h5>
               {searchResults.count === 0 ? (
                 <Alert variant="warning">لا توجد نتائج.</Alert>
               ) : (
                 <div style={{ fontSize: `${fontSize}px` }}>
                   {searchResults.results.map((verse, idx) => (
-                    <div key={idx} className="quran-search-result mb-3 p-2">
+                    <div key={idx} className="search-result mb-3 p-2">
                       <div className="d-flex justify-content-between align-items-center mb-1">
-                        <span style={{ fontFamily: 'Amiri, serif', fontSize: '0.65em', color: '#5a3e1b' }}>
-                          {verse.suraname}
-                        </span>
-                        <span
-                          className="verse-badge"
-                          title="انتقل إلى السورة"
-                          onClick={(e) => goToVerse(e, verse.suranum, verse.versenum)}
-                          style={{ width: 'auto', padding: '0 0.5em', fontSize: '0.55em' }}
-                        >
-                          آية {verse.versenum}
-                        </span>
+                        <span style={{ fontSize: '0.65em', color: '#5a3e1b' }}>{verse.suraname}</span>
+                        <div style={{ display: 'flex', gap: '3px' }}>
+                          <span className="search-badge" title="انتقل إلى السورة" onClick={(e) => goToVerse(e, verse.suranum, verse.versenum)}>
+                            آية {verse.versenum}
+                          </span>
+                          <span className="search-badge" onClick={() => handleVerseClick(verse, verse.suranum)}>التفسير</span>
+                        </div>
                       </div>
-                      <span
-                        className="hover-highlight"
-                        onClick={() => handleVerseClick(verse, verse.suranum)}
-                      >
-                        {verse.verse_txt}
-                      </span>
+                      <span style={{ fontSize: '0.9em', lineHeight: 2.2, textRendering: 'optimizeLegibility' }}>{verse.verse_txt}</span>
                     </div>
                   ))}
                 </div>
@@ -244,23 +261,17 @@ export default function QuranReader() {
                 </div>
               </div>
 
-              <p className="quran-verses" style={{ fontSize: `${fontSize}px`, lineHeight: '2.2', textAlign: 'justify' }}>
+              <p className="quran-verses" style={{ fontSize: `${fontSize}px`, lineHeight: '2.2', letterSpacing: '0.13px', textAlign: 'justify' }}>
                 {verses.map((verse, idx) => (
                   <span key={idx}>
-                    <span
-                      id={`verse-${verse.verse_num}`}
-                      className="hover-highlight"
-                      onClick={() => handleVerseClick(verse)}
-                    >
+                    <span id={`verse-${verse.verse_num}`} className="hover-highlight" onClick={() => handleVerseClick(verse)}>
                       {verse.verse_txt}
                     </span>
                     {' '}
-                    <span
-                      className="verse-badge"
-                      title="انتقل إلى الآية"
-                      onClick={(e) => goToVerse(e, sid, verse.verse_num)}
-                    >
-                      {verse.verse_num}
+                     {/* onClick={(e) => goToVerse(e, sid, verse.verse_num)} */}
+                    <span className="verse-badge" title="انتقل إلى الآية">
+                      
+                      {toArabicIndic(verse?.verse_num)}
                     </span>
                     {' '}
                   </span>

@@ -1,5 +1,4 @@
-/* ── Bible page wrapper + scoped variables ── */
-.bible-page {
+:root {
   /* ── Colors ── */
   --clr-maroon:         #5c2d40;
   --clr-maroon-dark:    #3e1a28;
@@ -39,7 +38,9 @@
 
   background-color: var(--clr-bg);
 }
-
+.badge.bg-primary {
+  background-color: #5c2d40 !important;
+}
 /* ── Sidebar ── */
 .bible-sidebar .card {
   border: 1px solid var(--clr-gold-pale);
@@ -187,7 +188,7 @@
   border-radius: var(--radius-md);
   font-family: 'Lora', serif;
   transition: background 0.15s;
-  cursor: pointer;
+  
 }
 
 .bible-search-result:hover {
@@ -199,6 +200,7 @@
   font-size: var(--fs-sm);
   color: var(--clr-text-brown);
   letter-spacing: 0.05em;
+  cursor: pointer;
 }
 
 /* ── Form controls ── */

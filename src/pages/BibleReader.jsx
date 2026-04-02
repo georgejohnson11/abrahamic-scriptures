@@ -34,18 +34,30 @@ export default function BibleReader() {
   useEffect(() => {
     const bid = parseInt(bookId)
     const cid = parseInt(chapterId)
+    const searchParams = new URLSearchParams(window.location.search)
+    const queryFromUrl = searchParams.get('q')
+    
     setLoading(true)
     setSearchResults(null)
-    setSearchQuery('')
-    Promise.all([
-      bibleAPI.getBook(bid),
-      bibleAPI.getChaptersCount(bid),
-      bibleAPI.getVerses(bid, cid)
-    ]).then(([bookRes, countRes, versesRes]) => {
-      setBookInfo(bookRes.data)
-      setChaptersCount(countRes.data.count)
-      setVerses(versesRes.data)
-    }).catch(console.error).finally(() => setLoading(false))
+    
+    if (queryFromUrl) {
+      setSearchQuery(queryFromUrl)
+      bibleAPI.search(queryFromUrl)
+        .then(res => setSearchResults(res.data))
+        .catch(console.error)
+        .finally(() => setLoading(false))
+    } else {
+      setSearchQuery('')
+      Promise.all([
+        bibleAPI.getBook(bid),
+        bibleAPI.getChaptersCount(bid),
+        bibleAPI.getVerses(bid, cid)
+      ]).then(([bookRes, countRes, versesRes]) => {
+        setBookInfo(bookRes.data)
+        setChaptersCount(countRes.data.count)
+        setVerses(versesRes.data)
+      }).catch(console.error).finally(() => setLoading(false))
+    }
   }, [bookId, chapterId])
 
   const handleSearch = async (e) => {
@@ -55,6 +67,10 @@ export default function BibleReader() {
     try {
       const res = await bibleAPI.search(searchQuery)
       setSearchResults(res.data)
+      // Add search query to URL
+      const params = new URLSearchParams(window.location.search)
+      params.set('q', searchQuery)
+      window.history.pushState({}, '', `?${params.toString()}`)
     } catch (error) {
       console.error(error)
     } finally {
@@ -65,6 +81,11 @@ export default function BibleReader() {
   const clearSearch = () => {
     setSearchResults(null)
     setSearchQuery('')
+    // Remove search query from URL
+    const params = new URLSearchParams(window.location.search)
+    params.delete('q')
+    const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname
+    window.history.pushState({}, '', newUrl)
   }
 
   const toggleTheme = () => {
@@ -167,19 +188,15 @@ export default function BibleReader() {
         {searchResults !== null ? (
           <div>
             <h5 className="mb-3" style={{ fontFamily: 'Cinzel, serif', color: '#3e1a28' }}>
-              Found <Badge style={{ background: '#5c2d40' }}>{searchResults.length}</Badge> results for "{searchQuery}"
+              Found <Badge>{searchResults.length}</Badge> results for "{searchQuery}"
             </h5>
             {searchResults.length === 0 ? (
               <Alert variant="warning">No verses found.</Alert>
             ) : (
               <div className="verses-container" style={{ fontSize: `${fontSize}px` }}>
                 {searchResults.map((verse, idx) => (
-                  <div
-                    key={idx}
-                    className="bible-search-result mb-3 p-2"
-                    onClick={() => navigate(`/bible/${verse.Book}/${verse.Chapter}`)}
-                  >
-                    <div className="bible-search-ref mb-1">
+                  <div key={idx} className="bible-search-result mb-3 p-2">
+                    <div className="bible-search-ref d-flex justify-content-between align-items-center mb-1" onClick={() => navigate(`/bible/${verse.Book}/${verse.Chapter}`)}>
                       {verse.book_name} — Chapter {verse.Chapter}, Verse {verse.verse_number}
                     </div>
                     <span>{verse.text}</span>
