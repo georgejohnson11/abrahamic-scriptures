@@ -19,7 +19,13 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest .
+        run: |
+          docker build \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/abrahamic-scriptures:latest \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/abrahamic-scriptures:${{ github.sha }} \
+            .
 
       - name: Push image
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/abrahamic-scriptures:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/abrahamic-scriptures:${{ github.sha }}
